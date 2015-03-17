@@ -1,6 +1,8 @@
 Learn.jl
 ==========
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Rory-Finnegan/Learn.jl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Base framework library for machine learning packages. Attempting to consolidate MLBase.jl and MachineLearning.jl into one common package.
 
 
