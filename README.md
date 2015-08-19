@@ -79,6 +79,33 @@ into a meta packages.
 
 
 ### Utilities ###
+Workflows:
+
+Workflows could be a way of building and describing multi src/sink pipelines of functions for data manipulation and ml applications in just a few lines of code.
+```
+# A collecion of functions for various data manipulations
+
+# Data Source functions
+data1(n) = rand(n)
+data2(n) = 100 * rand(n)
+
+# Data manipulation funtions
+fit1(x::Array{Float64, 1}, n) = sort(x)[1:n]
+transform(model::Array{Float64, 1}, x::Array{Float64, 1}; C=1) = C * (model * x')
+
+# Create a list of Transfroms that describe the function dependencies.
+transforms = [
+    Transform(:data1, data1, 100),
+    Transform(:data2, data2, 10),
+    Transform(:fit_data1, fit1, 10; input=[:data1]),
+    Transform(:tranform, transform; input=[:fit_data1, :data2], C=8)
+]
+
+# Build a data workflow from the Transforms and execute that workflow.
+flow = Flow(transforms)
+execute(flow)
+```
+
 Pipelines:
     allow pipelining multiple models so long as all models are valid LearningModels with a transform method. SupervisedPipeline could be a special case that requires the output model to be a supervised model. [Update: this should be handled by Orchestra.jl]
 
